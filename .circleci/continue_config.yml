@@ -17,11 +17,14 @@ parameters:
   run-ts-workflow:
     type: boolean
     default: false
+  run-solidity-workflow:
+    type: boolean
+    default: false
 
 job-macos-executor: &job-macos-executor
   macos:
     xcode: 16.2.0
-  resource_class: macos.m1.medium.gen1
+  resource_class: macos.m1.large.gen1
   environment:
     HOMEBREW_NO_AUTO_UPDATE: 1
 
@@ -106,6 +109,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-macos-{{ .Branch }}-
             - ccache-gpt4all-macos-
       - run:
           <<: *job-macos-install-deps
@@ -274,6 +278,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-macos-{{ .Branch }}-
             - ccache-gpt4all-macos-
       - run:
           <<: *job-macos-install-deps
@@ -428,6 +433,7 @@ jobs:
   build-offline-chat-installer-linux:
     machine:
       image: ubuntu-2204:current
+      resource_class: large
     steps:
       - checkout
       - run:
@@ -437,6 +443,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-linux-amd64-{{ .Branch }}-
             - ccache-gpt4all-linux-amd64-
       - run:
           <<: *job-linux-install-chat-deps
@@ -492,6 +499,7 @@ jobs:
   build-online-chat-installer-linux:
     machine:
       image: ubuntu-2204:current
+      resource_class: large
     steps:
       - checkout
       - run:
@@ -501,6 +509,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-linux-amd64-{{ .Branch }}-
             - ccache-gpt4all-linux-amd64-
       - run:
           <<: *job-linux-install-chat-deps
@@ -570,6 +579,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-win-amd64-{{ .Branch }}-
             - ccache-gpt4all-win-amd64-
       - run:
           name: Install dependencies
@@ -704,6 +714,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-win-amd64-{{ .Branch }}-
             - ccache-gpt4all-win-amd64-
       - run:
           name: Install dependencies
@@ -852,6 +863,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-win-aarch64-{{ .Branch }}-
             - ccache-gpt4all-win-aarch64-
       - run:
           name: Install dependencies
@@ -979,6 +991,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-win-aarch64-{{ .Branch }}-
             - ccache-gpt4all-win-aarch64-
       - run:
           name: Install dependencies
@@ -1108,6 +1121,7 @@ jobs:
   build-gpt4all-chat-linux:
     machine:
       image: ubuntu-2204:current
+      resource_class: large
     steps:
       - checkout
       - run:
@@ -1117,6 +1131,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-linux-amd64-{{ .Branch }}-
             - ccache-gpt4all-linux-amd64-
       - run:
           <<: *job-linux-install-chat-deps
@@ -1160,6 +1175,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-win-amd64-{{ .Branch }}-
             - ccache-gpt4all-win-amd64-
       - run:
           name: Install dependencies
@@ -1222,6 +1238,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-macos-{{ .Branch }}-
             - ccache-gpt4all-macos-
       - run:
           <<: *job-macos-install-deps
@@ -1285,6 +1302,65 @@ jobs:
             cd gpt4all-bindings/typescript
             npm run docs:build
 
+  security-scan:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Install security tools
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python3-pip
+            pip install snyk
+      - run:
+          name: Run Snyk dependency scan
+          command: |
+            snyk test --all-projects --severity-threshold=high
+          environment:
+            SNYK_TOKEN: $SNYK_TOKEN
+      - run:
+          name: Run CodeQL analysis
+          uses: github/codeql-action/init@v2
+          with:
+            languages: cpp,python,javascript
+      - run:
+          name: Perform CodeQL analysis
+          uses: github/codeql-action/analyze@v2
+
+  solidity-audit:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: Install Solidity tools
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y python3-pip
+            pip install slither-analyzer mythril
+            wget -O solc https://github.com/ethereum/solidity/releases/download/v0.8.19/solc-static-linux
+            chmod +x solc
+            sudo mv solc /usr/local/bin/
+      - run:
+          name: Compile Solidity contracts
+          command: |
+            find . -name "*.sol" -exec solc --bin --abi {} \;
+      - run:
+          name: Run Slither analysis
+          command: |
+            find . -name "*.sol" -exec slither {} \;
+      - run:
+          name: Run Mythril analysis
+          command: |
+            find . -name "*.sol" -exec myth analyze {} \;
+      - run:
+          name: AI-assisted fixing with GPT4All
+          command: |
+            # Placeholder for GPT4All integration
+            # This would use the GPT4All API to suggest fixes based on audit results
+            echo "Integrate GPT4All for automated Solidity contract fixing suggestions"
+
   deploy-docs:
     docker:
       - image: circleci/python:3.8
@@ -1314,10 +1390,12 @@ jobs:
   build-py-linux:
     machine:
       image: ubuntu-2204:current
+      resource_class: large
     steps:
       - checkout
       - restore_cache:
           keys:
+            - ccache-gpt4all-linux-amd64-{{ .Branch }}-
             - ccache-gpt4all-linux-amd64-
       - run:
           <<: *job-linux-install-backend-deps
@@ -1365,6 +1443,7 @@ jobs:
       - checkout
       - restore_cache:
           keys:
+            - ccache-gpt4all-macos-{{ .Branch }}-
             - ccache-gpt4all-macos-
       - run:
           <<: *job-macos-install-deps
@@ -1422,6 +1501,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-win-amd64-{{ .Branch }}-
             - ccache-gpt4all-win-amd64-
       - run:
           name: Install dependencies
@@ -1501,6 +1581,7 @@ jobs:
   build-bindings-backend-linux:
     machine:
       image: ubuntu-2204:current
+      resource_class: large
     steps:
       - checkout
       - run:
@@ -1510,6 +1591,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-linux-amd64-{{ .Branch }}-
             - ccache-gpt4all-linux-amd64-
       - run:
           <<: *job-linux-install-backend-deps
@@ -1558,6 +1640,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-macos-{{ .Branch }}-
             - ccache-gpt4all-macos-
       - run:
           <<: *job-macos-install-deps
@@ -1610,6 +1693,7 @@ jobs:
             git submodule update --init --recursive
       - restore_cache:
           keys:
+            - ccache-gpt4all-win-amd64-{{ .Branch }}-
             - ccache-gpt4all-win-amd64-
       - run:
           name: Install dependencies
@@ -1852,6 +1936,7 @@ workflows:
           - << pipeline.parameters.run-python-workflow >>
           - << pipeline.parameters.run-ts-workflow >>
           - << pipeline.parameters.run-chat-workflow >>
+          - << pipeline.parameters.run-solidity-workflow >>
           - equal: [ << pipeline.trigger_source >>, scheduled_pipeline ]
     jobs:
       - noop
@@ -2163,3 +2248,13 @@ workflows:
             - build-nodejs-linux
             - build-nodejs-windows
             - build-nodejs-macos
+
+  security-and-solidity:
+    when:
+      and:
+        - or: [ << pipeline.parameters.run-all-workflows >>, << pipeline.parameters.run-solidity-workflow >> ]
+        - not:
+            equal: [ << pipeline.trigger_source >>, scheduled_pipeline ]
+    jobs:
+      - security-scan
+      - solidity-audit

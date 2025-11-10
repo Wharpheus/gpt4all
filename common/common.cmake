@@ -13,6 +13,10 @@ function(gpt4all_add_warning_options target)
         -Wmissing-include-dirs
         -Wsuggest-override
         -Wvla
+        # security hardening options
+        -fstack-protector-strong
+        -fPIE
+        -D_FORTIFY_SOURCE=2
         # errors
         -Werror=format-security
         -Werror=init-self
