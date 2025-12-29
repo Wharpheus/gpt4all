@@ -48,16 +48,23 @@ def train(accelerator, config):
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
 
-        
+
     with accelerator.main_process_first():
-        train_dataloader, val_dataloader = load_data(config, tokenizer) 
+        train_dataloader, val_dataloader = load_data(config, tokenizer)
 
 
-    checkpoint = config["gradient_checkpointing"]
+    # Robust gradient checkpointing config
+    checkpoint = None
+    if "advanced" in config and isinstance(config["advanced"], dict):
+        checkpoint = config["advanced"].get("grad_checkpointing")
+    if checkpoint is None:
+        checkpoint = config.get("gradient_checkpointing", False)
 
-    model = AutoModelForCausalLM.from_pretrained(config["model_name"], 
-                                                    use_cache=False if checkpoint else True,
-                                                    trust_remote_code=True) 
+    model = AutoModelForCausalLM.from_pretrained(
+        config["model_name"],
+        use_cache=False if checkpoint else True,
+        trust_remote_code=True
+    )
     if checkpoint:
         model.gradient_checkpointing_enable()
 
@@ -84,6 +91,8 @@ def train(accelerator, config):
         gradient_accumulation_steps = accelerator.state.deepspeed_plugin.deepspeed_config[
             "gradient_accumulation_steps"
         ]
+    else:
+        gradient_accumulation_steps = config.get("gradient_accumulation_steps", 1)
 
     # decay to min_lr instead of 0
     lr_ratio = config["min_lr"] / config["lr"]
@@ -153,7 +162,7 @@ def train(accelerator, config):
             accelerator.backward(loss)
             # get gradient norm of all params
 
-            # log LR in case something weird happens 
+            # log LR in case something weird happens
             if step > 0 and step % (config["log_lr_every"]) == 0:
                 if config["wandb"]:
                     accelerator.log({"lr": scheduler.get_last_lr()[0]}, step=curr_step)
@@ -187,7 +196,6 @@ def train(accelerator, config):
                 train_loss.reset()
 
         accelerator.print(f"Epoch {epoch} finished")
-        accelerator.print(f"Pushing to HF hub")
         unwrapped_model = accelerator.unwrap_model(model)
 
         unwrapped_model.save_pretrained(
@@ -196,15 +204,17 @@ def train(accelerator, config):
             save_function=accelerator.save,
             state_dict=accelerator.get_state_dict(model),
         )
-        try:
-            if accelerator.is_main_process:
-                unwrapped_model.push_to_hub(config["save_name"] + f"-epoch_{epoch}", private=True)
+        if config.get("push_to_hub", False):
+            try:
+                if accelerator.is_main_process:
+                    accelerator.print(f"Pushing to HF hub")
+                    unwrapped_model.push_to_hub(config["save_name"] + f"-epoch_{epoch}", private=True)
 
-        except Exception as e:
-            accelerator.print(e)
-            accelerator.print(f"Failed to push to hub")
+            except Exception as e:
+                accelerator.print(e)
+                accelerator.print(f"Failed to push to hub")
 
-            
+
     if config["num_epochs"] > 1:
         accelerator.wait_for_everyone()
         unwrapped_model = accelerator.unwrap_model(model)
@@ -217,7 +227,7 @@ def train(accelerator, config):
 
     accelerator.end_training()
 
-    
+
 
 if __name__ == "__main__":
     # parse arguments by reading in a config

@@ -1,0 +1,37 @@
+# Configuration for GPT-Neo 1.3B with LoRA to fit in 8GB VRAM
+# Based on config_fixed.yaml
+
+# Model and Tokenizer
+model_name: "EleutherAI/gpt-neo-1.3B"
+tokenizer_name: "EleutherAI/gpt-neo-1.3B"
+gradient_checkpointing: true
+save_name: "gpt4all-prod-lora"
+
+# Dataset
+streaming: false
+num_proc: 1
+dataset_path: "../../data/train.jsonl"
+max_length: 1024
+batch_size: 1
+
+# Training Dynamics
+lr: 2.0e-5
+min_lr: 0
+weight_decay: 0.01
+save_every: 1000
+log_grads_every: 100
+log_lr_every: 100
+eval_every: 1000
+output_dir: "../../output/gpt4all-prod-lora/"
+checkpoint: null
+lora: true
+warmup_steps: 500
+num_epochs: 10
+gradient_accumulation_steps: 4
+
+# Logging
+wandb: false
+wandb_entity: ""
+wandb_project_name: "gpt4all-prod"
+seed: 42
+push_to_hub: false

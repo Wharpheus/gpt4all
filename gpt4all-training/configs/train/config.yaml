@@ -1,0 +1,97 @@
+# GPT4All Training Configuration (Production Optimized)
+wandb: false
+seed: 42
+tokenizer_name: gpt2
+max_length: 2048
+dataset_path: ../../data/train.jsonl
+streaming: false
+# See: https://github.com/nomic-ai/gpt4all for full documentation
+
+# === DATA ===
+data:
+  # Path to your training data (JSONL, TXT, or other supported format)
+  train_path: ../../data/train.jsonl
+  # Optional: Path to validation data
+  val_path: ../../data/val.jsonl
+  # Shuffle data for each epoch
+  shuffle: true
+  # Number of worker threads for data loading
+  num_workers: 4
+
+# === MODEL ===
+model:
+  # Model architecture (e.g., gpt4all, llama, gpt2, etc.)
+  arch: gpt4all
+  # Pretrained weights to start from (set to null for training from scratch)
+  pretrained: null
+  # Model hyperparameters
+  n_layer: 24
+  n_head: 16
+  n_embd: 4096
+  vocab_size: 32000
+  block_size: 2048
+
+# === TRAINING ===
+training:
+  # Output directory for checkpoints and logs
+  output_dir: ../../output/gpt4all-prod/
+  # Number of training epochs
+  epochs: 10
+  # Batch size per device (adjust for your GPU/CPU)
+  batch_size: 16
+  # Gradient accumulation steps (for large effective batch size)
+  grad_accum_steps: 4
+  # Learning rate
+  learning_rate: 2.0e-5
+  # Weight decay
+  weight_decay: 0.01
+  # Warmup steps
+  warmup_steps: 500
+  # Max gradient norm (for stability)
+  max_grad_norm: 1.0
+  # Save checkpoint every N steps
+  save_steps: 1000
+  # Log every N steps
+  log_steps: 100
+  # Use mixed precision (fp16) if supported
+  fp16: true
+  # Resume from latest checkpoint if available
+  resume: true
+
+# === EVALUATION ===
+eval:
+  # Run evaluation every N steps
+  eval_steps: 1000
+  # Metrics to compute (e.g., perplexity)
+  metrics: ["perplexity"]
+
+# === SYSTEM ===
+system:
+  # Device to use: "cuda", "cpu", or "auto"
+  device: auto
+  # Number of GPUs to use (set to 0 for CPU)
+  num_gpus: 1
+  # Seed for reproducibility
+  seed: 42
+
+# === LOGGING ===
+logging:
+  # Use wandb for experiment tracking (set to false to disable)
+  use_wandb: false
+  # Wandb project name
+  wandb_project: gpt4all-prod
+  # Log directory
+  log_dir: ../../logs/gpt4all-prod/
+
+# === ADVANCED ===
+advanced:
+  # Enable gradient checkpointing for memory efficiency
+  grad_checkpointing: true
+  # Enable distributed training (if using multiple GPUs/nodes)
+  distributed: false
+  # Custom callbacks (list of Python import paths)
+  callbacks: []
+
+# --- END OF CONFIG ---
+# Adjust paths and hyperparameters as needed for your hardware and data.
+# For large-scale training, increase batch_size, n_layer, n_head, n_embd, and num_gpus as appropriate.

@@ -13,10 +13,32 @@ def tokenize_inputs(config, tokenizer, examples):
     # hacky backward compatible
     different_eos = tokenizer.eos_token != "</s>"
     out = {"labels": [], "input_ids": [], "attention_mask": []}
-    for prompt, response in zip(examples["prompt"], examples["response"]):
+
+    # Support both schemas: prompt/response or contract/findings/fixes
+    if "prompt" in examples and "response" in examples:
+        prompts = examples["prompt"]
+        responses = examples["response"]
+    elif "contract" in examples and "findings" in examples and "fixes" in examples:
+        prompts = []
+        responses = []
+        for contract, findings, fixes in zip(examples["contract"], examples["findings"], examples["fixes"]):
+            if not contract:
+                continue
+            prompt = f"Analyze the following contract and list issues and fixes:\n\n{contract}"
+            findings_str = "\n".join(f"- {f}" for f in findings) if findings else "- None"
+            fixes_str = "\n".join(f"- {f}" for f in fixes) if fixes else "- None"
+            response = f"Findings:\n{findings_str}\nFixes:\n{fixes_str}"
+            prompts.append(prompt)
+            responses.append(response)
+    else:
+        raise ValueError("Dataset must contain either prompt/response or contract/findings/fixes fields.")
+
+    for prompt, response in zip(prompts, responses):
+        if not prompt or not response:
+            continue
         if different_eos:
             if response.count("</s> \n") > 0:
-                response = response.replace("</s> \n", f"{tokenizer.eos_token} \n") 
+                response = response.replace("</s> \n", f"{tokenizer.eos_token} \n")
 
         prompt_len = len(tokenizer(prompt + "\n", return_tensors="pt")["input_ids"][0])
 
@@ -31,28 +53,29 @@ def tokenize_inputs(config, tokenizer, examples):
             # get new prompt length
             prompt_len = tokenizer(prompt + "\n", return_tensors="pt", max_length=max_length // 2, truncation=True).input_ids.ne(tokenizer.pad_token_id).sum().item()
 
-        assert prompt_len <= max_length // 2, f"prompt length {prompt_len} exceeds max length {max_length}"
+        if prompt_len > max_length // 2:
+            continue
 
         input_tokens = tokenizer(prompt + "\n" + response + tokenizer.eos_token,
                                  truncation=True, max_length=max_length, return_tensors="pt")["input_ids"].squeeze()
 
         labels = input_tokens.clone()
         labels[:prompt_len] = -100
+
         if len(labels) < max_length:
             # pad to max_length with -100
             labels = torch.cat([labels, torch.full((max_length - len(labels),), -100)])
 
-        assert (labels == -100).sum() < len(labels), f"Labels are all -100, something wrong. prompt length {prompt_len} exceeds max length {max_length}" 
-        
-        if (labels == -100).sum() == len(labels) - 1:
-            print(prompt)
-            print(response)
-            raise
+        if (labels == -100).sum() >= len(labels) - 1:
+            continue
 
         padded = tokenizer.pad({"input_ids": input_tokens}, padding="max_length", max_length=max_length, return_tensors="pt")
         out["labels"].append(labels)
         out["input_ids"].append(padded["input_ids"])
         out["attention_mask"].append(padded["attention_mask"])
+
+    if not out["labels"]:
+        raise ValueError("No valid prompt/response pairs found after mapping dataset. Check your data format.")
 
     out = {k: torch.stack(v) if isinstance(v, list) else v for k, v in out.items()}
 
@@ -80,7 +103,14 @@ def load_data(config, tokenizer):
     train_dataset, val_dataset = dataset["train"], dataset["test"]
 
     if config["streaming"] is False:
-        kwargs = {"num_proc": config["num_proc"]}
+        # num_proc controls multiprocessing for HF datasets.map().
+        # Some configs use data.num_workers instead; default safely if missing.
+        num_proc = config.get("num_proc")
+        if num_proc is None:
+            num_proc = config.get("data", {}).get("num_workers", 1)
+        # HF datasets expects num_proc >= 1
+        num_proc = max(int(num_proc), 1)
+        kwargs = {"num_proc": num_proc}
     else:
         kwargs = {}
 
@@ -107,23 +137,30 @@ def load_data(config, tokenizer):
 
     # create dataloader with default data collator since we already have labels
 
+    # Allow batch_size to be provided at top-level or under training.batch_size
+    _bs = config.get("batch_size", config.get("training", {}).get("batch_size", 1))
+    try:
+        batch_size = max(int(_bs), 1)
+    except Exception:
+        batch_size = 1
+
     train_dataloader = DataLoader(
         train_dataset,
         collate_fn=DefaultDataCollator(),
-        batch_size=config["batch_size"],
+        batch_size=batch_size,
         shuffle=True,
     )
 
     val_dataloader = DataLoader(
         val_dataset,
         collate_fn=DefaultDataCollator(),
-        batch_size=config["batch_size"],
+        batch_size=batch_size,
         shuffle=True,
     )
 
     return train_dataloader, val_dataloader
 
-    
+
 def load_data_for_inference(config, tokenizer):
     dataset_path = config["dataset_path"]
 
@@ -153,7 +190,14 @@ def load_data_for_inference(config, tokenizer):
     val_dataset = val_dataset.select(range((len(val_dataset) // config["batch_size"]) * config["batch_size"]))
 
     if config["streaming"] is False:
-        kwargs = {"num_proc": config["num_proc"]}
+        # num_proc controls multiprocessing for HF datasets.map().
+        # Some configs use data.num_workers instead; default safely if missing.
+        num_proc = config.get("num_proc")
+        if num_proc is None:
+            num_proc = config.get("data", {}).get("num_workers", 1)
+        # HF datasets expects num_proc >= 1
+        num_proc = max(int(num_proc), 1)
+        kwargs = {"num_proc": num_proc}
     else:
         kwargs = {}
 
@@ -164,7 +208,7 @@ def load_data_for_inference(config, tokenizer):
         **kwargs
     )
     val_dataset = val_dataset.map(
-        lambda ele: tokenize_inputs(config, tokenizer, ele), 
+        lambda ele: tokenize_inputs(config, tokenizer, ele),
         batched=True,
         **kwargs
     )
