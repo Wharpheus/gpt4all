@@ -4,8 +4,6 @@ This is a training log for both the LoRa and full model training we underwent
 
 ## Inspiration
 
-
-
 ## Initial Experiment
 
 We train an initial LoRa model on ~700k examples including data from P3/BLOOM, StackOverflow, and unified_chip2.
@@ -28,7 +26,6 @@ We randomly shuffle and set aside 5% of the data for validation.
 We had an initial bug in logging the training loss but we noticed a decrease in validation loss.
 
 ![](figs/first_lora.png)
-
 
 During generation, we noticed that our model seemed to never generate an `eos` token. We realized that this was due to the fact that we set
 the tokenizer `pad` token equal to the `eos` token and most likely never learned to "stop". However, generations seemed to be working
@@ -77,7 +74,6 @@ For example, when prompted with `Generate a python script to reverse a string.`,
 
     Note that this function also handles strings with spaces or other special characters.
 
-
     Answer: Here's a Python script to reverse a string:
 
     ```python
@@ -116,7 +112,6 @@ The string should be reversed in place. The string should be reversed in place. 
 The string should be reversed in place. The string should be reversed in place. The string should be reversed in place. The string should be reversed in place. The string should be
 ```
 
-
 ## EOS and Accidental Duplication
 
 Seeing as the model never stopped, we experimented with training a model with a separate token for `eos` and `pad`. Since we couldn't find a `pad` token present in the vocabulary, we added one to the tokenizer and expanded the embedding size of the model (from 32,000). In theory, we could have expanded the embedding size by a factor of 64 to improve throughput and performance, as [noted here](https://twitter.com/ctnzr/status/1623758178587648000?s=20).
@@ -147,7 +142,6 @@ For a harder prompt where we try to trick the model with comments
 my_string = "hello how are you"
 print(len(my_string))
 
-
 My code above does not work. Can you help me?
 ```
 
@@ -155,8 +149,8 @@ The model correctly answers
 
     The code you provided does not print a string reversed. It prints the length of the string "hello how are you".
 
-
 We realized that we had two bugs however:
+
 - We accidentally duplicated data and effectively trained for 2 epochs instead of 1
 - We added an eos token to every sequence, even those that we truncated (e.g. long code that exceeds the 1024).
 
@@ -188,17 +182,14 @@ The prompt
 my_string = "hello how are you"
 print(len(my_string))
 
-
 My code above does not work. Can you help me?
 ```
 
 does not generate any text.
 
-
 And the prompt `"Generate a python script to make a get request to an api endpoint."` generates
 
     I'm sorry, I cannot provide a specific answer to this question as it requires more context and details about the API endpoint and the specific task you are trying to accomplish. Can you please provide more information?
-
 
 ## Multi Epoch and Full Model Training
 
@@ -218,7 +209,6 @@ We train a LoRa model using the parameters
 | Weight decay   | 0     |
 | Warmup Steps   | 100   |
 
-
 We additionally train a full model 
 | Hyperparameter | Value |
 |----------------|-------|
@@ -236,26 +226,19 @@ Comparing our model LoRa to the [Alpaca LoRa](https://huggingface.co/tloen/alpac
 
 We tried training a full model using the parameters above, but found that during the second epoch the model diverged and samples generated post training were worse than the first epoch. 
 
-
 ## GPT-J Training
 
 ### Model Training Divergence
 
 We trained multiple [GPT-J models](https://huggingface.co/EleutherAI/gpt-j-6b) with varying success. We found that training the full model lead to diverged post epoch 1. ![](figs/overfit-gpt-j.png)
 
-
 We release the checkpoint after epoch 1.
 
-
 Using Atlas, we extracted the embeddings of each point in the dataset and calculated the loss per sequence. We then uploaded [this to Atlas](https://atlas.nomic.ai/map/gpt4all-j-post-epoch-1-embeddings) and noticed that the higher loss items seem to cluster. On further inspection, the highest density clusters seemed to be of prompt/response pairs that asked for creative-like generations such as `Generate a story about ...` ![](figs/clustering_overfit.png)
-
-
 
 ### GPT4All-J Hyperparameters
 
 We varied learning rate, learning rate schedule, and weight decay following suggestions from the [original GPT-J codebase](https://github.com/kingoflolz/mesh-transformer-jax/blob/master/howto_finetune.md) but found no real performance difference (qualitatively or quantitatively) when varying these parameters.
-
-
 
 The final model was trained using the following hyperparameters with a linear warmup followed by constant learning rate:
 
@@ -268,7 +251,6 @@ The final model was trained using the following hyperparameters with a linear wa
 | Max length     | 1024  |
 | Weight decay   | 0     |
 | Warmup Steps   | 500   |
-
 
 The LoRA model was trained using using the following hyperparameters with a linear warmup followed by constant learning rate: 
 

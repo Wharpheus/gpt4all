@@ -5,11 +5,13 @@ The [GPT4All Chat Client](https://gpt4all.io) lets you easily interact with any 
 It is optimized to run 7-13B parameter LLMs on the CPU's of any computer running OSX/Windows/Linux.
 
 ## Running LLMs on CPU
+
 The GPT4All Chat UI supports models from all newer versions of `llama.cpp` with `GGUF` models including the `Mistral`, `LLaMA2`, `LLaMA`, `OpenLLaMa`, `Falcon`, `MPT`, `Replit`, `Starcoder`, and `Bert` architectures
 
 GPT4All maintains an official list of recommended models located in [models3.json](https://github.com/nomic-ai/gpt4all/blob/main/gpt4all-chat/metadata/models3.json). You can pull request new models to it and if accepted they will show up in the official download dialog.
 
 #### Sideloading any GGUF model
+
 If a model is compatible with the gpt4all-backend, you can sideload it into GPT4All Chat by:
 
 1. Downloading your model in GGUF format. It should be a 3-8 GB file similar to the ones [here](https://huggingface.co/TheBloke/Orca-2-7B-GGUF/tree/main).
@@ -18,9 +20,11 @@ If a model is compatible with the gpt4all-backend, you can sideload it into GPT4
 4. Restarting your GPT4ALL app. Your model should appear in the model selection list.
 
 ## Plugins
+
 GPT4All Chat Plugins allow you to expand the capabilities of Local LLMs.
 
 ### LocalDocs Plugin (Chat With Your Data)
+
 LocalDocs is a GPT4All feature that allows you to chat with your local files and data.
 It allows you to utilize powerful local LLMs to chat with private data without any data leaving your computer or server.
 When using LocalDocs, your LLM will cite the sources that most likely contributed to a given output. Note, even an LLM equipped with LocalDocs can hallucinate. The LocalDocs plugin will utilize your documents to help answer prompts and you will see references appear below the response.
@@ -30,16 +34,20 @@ When using LocalDocs, your LLM will cite the sources that most likely contribute
 </p>
 
 #### Enabling LocalDocs
+
 1. Install the latest version of GPT4All Chat from [GPT4All Website](https://gpt4all.io).
 2. Go to `Settings > LocalDocs tab`.
 3. Download the SBert model
 4. Configure a collection (folder) on your computer that contains the files your LLM should have access to. You can alter the contents of the folder/directory at anytime. As you
+
 add more files to your collection, your LLM will dynamically be able to access them.
+
 5. Spin up a chat session with any LLM (including external ones like ChatGPT but warning data will leave your machine!)
 6. At the top right, click the database icon and select which collection you want your LLM to know about during your chat session.
 7. You can begin searching with your localdocs even before the collection has completed indexing, but note the search will not include those parts of the collection yet to be indexed.
 
 #### LocalDocs Capabilities
+
 LocalDocs allows your LLM to have context about the contents of your documentation collection.
 
 LocalDocs **can**:
@@ -54,6 +62,7 @@ LocalDocs **cannot**:
 See the Troubleshooting section for common issues.
 
 #### How LocalDocs Works
+
 LocalDocs works by maintaining an index of all data in the directory your collection is linked to. This index
 consists of small chunks of each document that the LLM can receive as additional input when you ask it a question.
 The general technique this plugin uses is called [Retrieval Augmented Generation](https://arxiv.org/abs/2005.11401).
@@ -64,13 +73,14 @@ The number of chunks and the size of each chunk can be configured in the LocalDo
 LocalDocs currently supports plain text files (`.txt`, `.md`, and `.rst`) and PDF files (`.pdf`).
 
 #### Troubleshooting and FAQ
+
 *My LocalDocs plugin isn't using my documents*
 
 - Make sure LocalDocs is enabled for your chat session (the DB icon on the top-right should have a border)
 - If your document collection is large, wait 1-2 minutes for it to finish indexing.
 
-
 #### LocalDocs Roadmap
+
 - Customize model fine-tuned with retrieval in the loop.
 - Plugin compatibility with chat client server mode.
 

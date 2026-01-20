@@ -23,6 +23,7 @@ its package dependencies are present, you can download and run it from wherever 
 python -m venv gpt4all-cli
 ```
 _Windows_ and _Unix-like_ systems differ slightly in how you activate a _virtual environment_:
+
 - _Unix-like_, typically: `. gpt4all-cli/bin/activate`
 - _Windows_: `gpt4all-cli\Scripts\activate`
 

@@ -22,7 +22,6 @@ Obsidian for Desktop is a powerful management and note-taking software designed 
             - Choose the folders you want to sync to your computer.
    
 
-
 ## Connect Obsidian to LocalDocs
 
 !!! note "Connect Obsidian to LocalDocs"
@@ -72,6 +71,7 @@ Obsidian for Desktop is a powerful management and note-taking software designed 
    
       5. **Interact With Your Notes:**
          - Use the model to interact with your files
+
          <table>
             <tr>
                <td>
@@ -106,4 +106,3 @@ Obsidian for Desktop is a powerful management and note-taking software designed 
 Obsidian for Desktop syncs your Obsidian notes to your computer, while LocalDocs integrates these files into your LLM chats using embedding models. These models find semantically similar snippets from your files to enhance the context of your interactions.
 
 To learn more about embedding models and explore further, refer to the [Nomic Python SDK documentation](https://docs.nomic.ai/atlas/capabilities/embeddings).
-

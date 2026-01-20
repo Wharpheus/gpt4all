@@ -11,6 +11,7 @@ package. The source code, README, and local build instructions can be found
 [typer]: https://typer.tiangolo.com/
 
 ## Installation
+
 ### The Short Version
 
 The CLI is a Python script called [app.py]. If you're already familiar with Python best practices,
@@ -34,8 +35,10 @@ In case you're wondering, _REPL_ is an acronym for [read-eval-print loop][wiki-r
 
 Especially if you have several applications/libraries which depend on Python, to avoid descending
 into dependency hell at some point, you should:
+
 - Consider to always install into some kind of [_virtual environment_][venv].
 - On a _Unix-like_ system, don't use `sudo` for anything other than packages provided by the system
+
   package manager, i.e. never with `pip`.
 
 [venv]: https://docs.python.org/3/library/venv.html
@@ -49,6 +52,7 @@ Note: _Typer_ has an optional dependency for more fanciful output. If you want t
 with `typer[all]` in the pip-install instructions below.
 
 #### Virtual Environment Installation
+
 You can name your _virtual environment_ folder for the CLI whatever you like. In the following,
 `gpt4all-cli` is used throughout.
 
@@ -103,6 +107,7 @@ On other distros, the situation might be different. Especially the package names
 You'll have to look it up in the documentation, software directory, or package search.
 
 #### User Installation
+
 ##### macOS
 
 There are at least three ways to have a Python installation on _macOS_, and possibly not all of them
@@ -150,6 +155,7 @@ dependencies.
 
 Note: different platforms can have slightly different ways to start Python. Whereas below the
 interpreter command is written as `python` you typically want to type instead:
+
 - On _Unix-like_ systems: `python3`
 - On _Windows_: `py -3`
 
@@ -182,8 +188,10 @@ to activate that every time you want to run the CLI. Instead, you can just start
 interpreter in the folder `gpt4all-cli/bin/` (_Unix-like_) or `gpt4all-cli/Script/` (_Windows_).
 
 That also makes it easy to set an alias e.g. in [Bash][bash-aliases] or [PowerShell][posh-aliases]:
+
 - Bash: `alias gpt4all="'/full/path/to/gpt4all-cli/bin/python' '/full/path/to/app.py' repl"`
 - PowerShell:
+
   ```posh
   Function GPT4All-Venv-CLI {"C:\full\path\to\gpt4all-cli\Scripts\python.exe" "C:\full\path\to\app.py" repl}
   Set-Alias -Name gpt4all -Value GPT4All-Venv-CLI

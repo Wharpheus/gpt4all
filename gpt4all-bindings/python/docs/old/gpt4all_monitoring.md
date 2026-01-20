@@ -13,6 +13,7 @@ Additionally, you have the flexibility to view and analyze the generated traces 
 Here’s a straightforward guide to help you set up and start monitoring your application:
 
 ### 1. Install the OpenLIT SDK
+
 Open your terminal and run:
 
 ```shell
@@ -20,6 +21,7 @@ pip install openlit
 ```
 
 ### 2. Setup Monitoring for your Application
+
 In your application, initiate OpenLIT as outlined below:
 
 ```python

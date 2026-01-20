@@ -31,7 +31,6 @@ Models are loaded by name via the `GPT4All` class. If it's your first time loadi
 | `orca-mini-3b-gguf2-q4_0.gguf`| 1.98 GB| 4 GB| 3 billion| q4_0| Microsoft | [CC-BY-NC-SA-4.0](https://spdx.org/licenses/CC-BY-NC-SA-4.0)| 0e769317b90ac30d6e09486d61fefa26|
 | `gpt4all-13b-snoozy-q4_0.gguf`| 7.37 GB| 16 GB| 13 billion| q4_0| Nomic AI| [GPL](https://www.gnu.org/licenses/gpl-3.0.en.html)| 40388eb2f8d16bb5d08c96fdfaac6b2c|
 
-
 ## Chat Session Generation
 
 Most of the language models you will be able to access from HuggingFace have been trained as assistants. This guides language models to not just answer with relevant text, but *helpful* text.

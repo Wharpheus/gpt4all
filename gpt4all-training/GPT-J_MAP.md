@@ -1,12 +1,10 @@
 # Inference on Training Data
 
-
 ## Run Inference
 
 ```bash
 torchrun --master_port=29085 --nproc-per-node 8 inference.py --config=configs/inference/gptj.yaml
 ```
-
 
 ## Visualizations
 

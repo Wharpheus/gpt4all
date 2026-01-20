@@ -560,6 +560,7 @@ Initiate a GPU by a string identifier.
 
 *   `memory_required` **[number](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number)** Should be in the range size\_t or will throw
 *   `device_name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 'amd' | 'nvidia' | 'intel' | 'gpu' | gpu name.
+
     read LoadModelOptions.device for more information
 
 Returns **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)**&#x20;
@@ -642,6 +643,7 @@ The processing unit on which the model will run. It can be set to
 *   "gpu": Model will run on the best available graphics processing unit, irrespective of its vendor.
 *   "amd", "nvidia", "intel": Model will run on the best available GPU from the specified vendor.
 *   "gpu name": Model will run on the GPU that matches the name if it's available.
+
     Note: If a GPU device lacks sufficient RAM to accommodate the model, an error will be thrown, and the GPT4All
     instance will be rendered invalid. It's advised to ensure the device has enough memory before initiating the
     model.

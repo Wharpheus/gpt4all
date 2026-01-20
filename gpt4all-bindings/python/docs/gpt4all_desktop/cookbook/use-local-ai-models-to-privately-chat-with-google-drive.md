@@ -1,4 +1,5 @@
 # Using GPT4All to Privately Chat with your Google Drive Data
+
 Local and Private AI Chat with your Google Drive Data
 
 Google Drive for Desktop allows you to sync and access your Google Drive files directly on your computer. By connecting your synced directory to LocalDocs, you can start using GPT4All to privately chat with data stored in your Google Drive.
@@ -21,6 +22,7 @@ Google Drive for Desktop allows you to sync and access your Google Drive files d
     - Choose the folders you want to sync to your computer.
 
 For advanced help, see [Setting up Google Drive for Desktop](https://support.google.com/drive/answer/10838124?hl=en)
+
 ## Connect Google Drive to LocalDocs
 
 !!! note "Connect Google Drive to LocalDocs"
@@ -54,7 +56,6 @@ For advanced help, see [Setting up Google Drive for Desktop](https://support.goo
         </table>
 
         - Name Collection
-
 
     3. **Create Collection**:
     

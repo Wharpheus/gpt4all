@@ -1,6 +1,7 @@
 Below are the recommended and minimum system requirements for GPT4All.
 
 ### **Recommended System Requirements**
+
 | **Component** | **PC (Windows/Linux)**                                | **Apple**                  |
 |---------------|-------------------------------------------------------|----------------------------|
 | **CPU**       | Ryzen 5 3600 or Intel Core i7-10700, or better        | M2 Pro                     |
@@ -9,6 +10,7 @@ Below are the recommended and minimum system requirements for GPT4All.
 | **OS**        | At least Windows 10 or Ubuntu 24.04 LTS               | macOS Sonoma 14.5 or newer |
 
 ### **Minimum System Requirements**
+
 | **Component** | **PC (Windows/Linux)**                                          | **Apple**           |
 |---------------|-----------------------------------------------------------------|---------------------|
 | **CPU**       | Intel Core: i3-2100, Pentium: 7505, Celeron: 6305; AMD: FX-4100 | M1                  |

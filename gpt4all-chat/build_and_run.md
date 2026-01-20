@@ -45,10 +45,12 @@ sudo dnf install cmake gcc-c++ ninja-build qt-creator qt5-qtgraphicaleffects qt6
 Under "Qt", find the latest Qt 6.x release.
 
 Under this release (e.g. Qt 6.5.0), select the target platform:
+
 - On macOS, it is just called "macOS".
 - On Windows, it is called "MSVC 2019 64-bit" (for 64-bit x86 CPUs). MinGW has not been tested.
 
 Under this release, select the following additional components:
+
 - Qt 5 Compatibility Module
 - Additional Libraries:
   - Qt HTTP Server
@@ -56,6 +58,7 @@ Under this release, select the following additional components:
 - Qt Debug information Files
 
 Under Developer and Designer Tools, select the following components:
+
 - Qt Creator
 - Qt Creator CDB Debugger Support (for Windows only)
 - Debugging Tools for Windows (for Windows only)

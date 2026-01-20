@@ -1,4 +1,5 @@
 # Using GPT4All to Privately Chat with your Microsoft Excel Spreadsheets
+
 Local and Private AI Chat with your Microsoft Excel Spreadsheets
 
 Microsoft Excel allows you to create, manage, and analyze data in spreadsheet format. By attaching your spreadsheets directly to GPT4All, you can privately chat with the AI to query and explore the data, enabling you to summarize, generate reports, and glean insights from your files—all within your conversation.
@@ -6,7 +7,6 @@ Microsoft Excel allows you to create, manage, and analyze data in spreadsheet fo
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
   <iframe src="../../assets/gpt4all_xlsx_attachment.mp4" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border:0;" allowfullscreen title="YouTube Video"></iframe>
 </div>
-
 
 ## Attach Microsoft Excel to your GPT4All Conversation
 
@@ -39,6 +39,7 @@ Microsoft Excel allows you to create, manage, and analyze data in spreadsheet fo
          </table>
 
     3. **Attach to GPT4All conversration**
+
         <table>
             <tr>
                <td>
@@ -49,6 +50,7 @@ Microsoft Excel allows you to create, manage, and analyze data in spreadsheet fo
          </table>
 
     4. **Have GPT4All Summarize and Generate a Report**
+
         <table>
             <tr>
                <td>
@@ -57,7 +59,6 @@ Microsoft Excel allows you to create, manage, and analyze data in spreadsheet fo
                </td>
             </tr>
          </table>
-
 
 ## How It Works
 

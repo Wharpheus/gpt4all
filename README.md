@@ -91,7 +91,6 @@ with model.chat_session():
     print(model.generate("How can I run LLMs efficiently on my laptop?", max_tokens=1024))
 ```
 
-
 ## Integrations
 
 :parrot::link: [Langchain](https://python.langchain.com/v0.2/docs/integrations/providers/gpt4all/)
@@ -99,6 +98,7 @@ with model.chat_session():
 :telescope: [OpenLIT (OTel-native Monitoring)](https://github.com/openlit/openlit) - [Docs](https://docs.openlit.io/latest/integrations/gpt4all)
 
 ## Release History
+
 - **July 2nd, 2024**: V3.0.0 Release
     - Fresh redesign of the chat application UI
     - Improved user workflow for LocalDocs
@@ -114,6 +114,7 @@ with model.chat_session():
 [Docker-based API server]: https://github.com/nomic-ai/gpt4all/tree/cef74c2be20f5b697055d5b8b506861c7b997fab/gpt4all-api
 
 ## Contributing
+
 GPT4All welcomes contributions, involvement, and discussion from the open source community!
 Please see CONTRIBUTING.md and follow the issues, bug reports, and PR markdown templates.
 

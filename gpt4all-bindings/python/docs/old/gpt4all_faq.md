@@ -94,6 +94,7 @@ The chat GUI and bindings are based on the same backend. You can make them behav
     - Specifically, in Python:
         - With simple `generate()` calls, the input has to be surrounded with system and prompt templates.
         - When using a chat session, it depends on whether the bindings are allowed to download [models3.json]. If yes,
+
           and in the chat GUI the default templates are used, it'll be handled automatically. If no, use
           `chat_session()` template parameters to customize them.
 

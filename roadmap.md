@@ -1,5 +1,6 @@
 
 # GPT4All 2024 Roadmap
+
 To contribute to the development of any of the below roadmap items, make or find the corresponding issue and cross-reference the [in-progress task](https://github.com/orgs/nomic-ai/projects/2/views/1).
 
 Each item should have an issue link below.

@@ -28,27 +28,22 @@
 <a href="https://python.langchain.com/en/latest/modules/models/llms/integrations/gpt4all.html">🦜️🔗 Official Langchain Backend</a> 
 </p>
 
-
 <p align="center">
 <a href="https://discord.gg/mGZE39AS3e">Discord</a>
 </p>
-
-
-
 
 <p align="center">
 GPT4All is made possible by our compute partner <a href="https://www.paperspace.com/">Paperspace</a>.
 </p>
 
-
-
 ## GPT4All-J: An Apache-2 Licensed GPT4All Model
+
 ![gpt4all-j-demo](https://user-images.githubusercontent.com/13879686/231876409-e3de1934-93bb-4b4b-9013-b491a969ebbc.gif)
 
 Run on an M1 Mac (not sped up!)
 
-
 ### GPT4All-J Chat UI Installers
+
 Installs a native chat-client with auto-update functionality that runs on your desktop with the GPT4All-J model baked into it.
 
 [Mac/OSX](https://gpt4all.io/installers/gpt4all-installer-darwin.dmg)
@@ -70,6 +65,7 @@ These files are not yet cert signed by Windows/Apple so you will see security wa
 Find the most up-to-date information on the [GPT4All Website](https://gpt4all.io/)
 
 ### Raw Model
+
 [ggml Model Download Link](https://gpt4all.io/models/ggml-gpt4all-j.bin)
 
 Note this model is only compatible with the C++ bindings found [here](https://github.com/nomic-ai/gpt4all-chat). It will not work with any existing llama.cpp bindings as we had to do a large fork of llama.cpp. GPT4All will support the ecosystem around this new C++ backend going forward.
@@ -110,10 +106,7 @@ model = AutoModelForCausalLM.from_pretrained("nomic-ai/gpt4all-j-prompt-generati
 accelerate launch --dynamo_backend=inductor --num_processes=8 --num_machines=1 --machine_rank=0 --deepspeed_multinode_launcher standard --mixed_precision=bf16  --use_deepspeed --deepspeed_config_file=configs/deepspeed/ds_config_gptj.json train.py --config configs/train/finetune_gptj.yaml
 ```
 
-
 # Original GPT4All Model (based on GPL Licensed LLaMa)
-
-
 
 ![gpt4all-lora-demo](https://user-images.githubusercontent.com/13879686/228352356-de66ca7a-df70-474e-b929-2e3656165051.gif)
 
@@ -139,15 +132,19 @@ Find all compatible models in the GPT4All Ecosystem section.
 [Secret Unfiltered Checkpoint](https://the-eye.eu/public/AI/models/nomic-ai/gpt4all/gpt4all-lora-unfiltered-quantized.bin) - [[Torrent]](https://the-eye.eu/public/AI/models/nomic-ai/gpt4all/gpt4all-lora-unfiltered-quantized.bin.torrent)
 
 This model had all refusal to answer responses removed from training. Try it with:
+
 - M1 Mac/OSX: `cd chat;./gpt4all-lora-quantized-OSX-m1 -m gpt4all-lora-unfiltered-quantized.bin`
 - Linux: `cd chat;./gpt4all-lora-quantized-linux-x86 -m gpt4all-lora-unfiltered-quantized.bin`
 - Windows (PowerShell): `cd chat;./gpt4all-lora-quantized-win64.exe -m gpt4all-lora-unfiltered-quantized.bin`
 - Intel Mac/OSX: `cd chat;./gpt4all-lora-quantized-OSX-intel -m gpt4all-lora-unfiltered-quantized.bin`
+
 -----------
 Note: the full model on GPU (16GB of RAM required) performs much better in our qualitative evaluations.
 
 # Python Client
+
 ## CPU Interface
+
 To run GPT4All in python, see the new [official Python bindings](https://github.com/nomic-ai/pyllamacpp).
 
 The old bindings are still available but now deprecated. They will not work in a notebook environment.
@@ -161,8 +158,10 @@ m.prompt('write me a story about a lonely computer')
 ```
 
 ## GPU Interface
+
 There are two ways to get up and running with this model on GPU.
 The setup here is slightly more involved than the CPU model.
+
 1. clone the nomic client [repo](https://github.com/nomic-ai/nomic) and run `pip install .[GPT4All]` in the home dir.
 2. run `pip install nomic` and install the additional deps from the wheels built [here](https://github.com/nomic-ai/nomic/tree/main/bin)
 
@@ -184,6 +183,7 @@ We are working on a GPT4All that does not have this limitation right now.
 You can pass any of the [huggingface generation config params](https://huggingface.co/docs/transformers/main_classes/text_generation#transformers.GenerationConfig) in the config.
 
 # GPT4All Compatibility Ecosystem
+
 Edge models in the GPT4All Ecosystem. Please PR as the [community grows](https://huggingface.co/models?sort=modified&search=4bit).
 Feel free to convert this to a more structured table.
 
@@ -195,9 +195,10 @@ Feel free to convert this to a more structured table.
 - [LLaMa-Storytelling-4Bit](https://huggingface.co/GamerUntouch/LLaMa-Storytelling-4Bit)
 - [Alpaca Native 4bit](https://huggingface.co/Sosaka/Alpaca-native-4bit-ggml/tree/main)
 
-
 # Roadmap
+
 ## Short Term
+
  - <span style="color:green">(Done)</span> Train a GPT4All model based on GPTJ to alleviate llama distribution issues.
  - <span style="color:green">(Done)</span> Create improved CPU and GPU interfaces for this model.
  - <span style="color:green">(Done)</span> [Integrate llama.cpp bindings](https://github.com/nomic-ai/pyllamacpp)
@@ -205,24 +206,28 @@ Feel free to convert this to a more structured table.
  - <span style="color:green">(Done)</span> [Allow users to opt in and submit their chats for subsequent training runs](https://github.com/nomic-ai/gpt4all-ui)
 
 ## Medium Term
+
  - <span style="color:red">(NOT STARTED)</span> Integrate GPT4All with [Atlas](https://atlas.nomic.ai) to allow for document retrieval.
    - BLOCKED by GPT4All based on GPTJ
  - <span style="color:red">(Done)</span> Integrate GPT4All with Langchain.
  - <span style="color:green">(IN PROGRESS)</span> Build easy custom training scripts to allow users to fine tune models.
 
 ## Long Term
+
  - <span style="color:red">(NOT STARTED)</span> Allow anyone to curate training data for subsequent GPT4All releases using Atlas.
  - <span style="color:green">(IN PROGRESS)</span> Democratize AI. 
 
 # Reproducibility
 
 Trained Model Weights:
+
 - gpt4all-lora (four full epochs of training):  https://huggingface.co/nomic-ai/gpt4all-lora
 - gpt4all-lora-epoch-2 (three full epochs of training) https://huggingface.co/nomic-ai/gpt4all-lora-epoch-2
 - gpt4all-j (one full epoch of training) (https://huggingface.co/nomic-ai/gpt4all-j)
 - gpt4all-j-lora (one full epoch of training) (https://huggingface.co/nomic-ai/gpt4all-j-lora)
 
 Raw Data:
+
 - [Training Data Without P3](https://huggingface.co/datasets/nomic-ai/gpt4all_prompt_generations)
   - Explorer: https://atlas.nomic.ai/map/gpt4all_data_clean_without_p3
 - [Full Dataset with P3](https://huggingface.co/datasets/nomic-ai/gpt4all_prompt_generations_with_p3)
@@ -272,6 +277,7 @@ Join the <a href="https://discord.gg/E7q6fp9bmx"> Discord </a> and ask for help 
 # Sample Generations
 
 ### Provide instructions for the given exercise. Leg Raises
+
 >Leg Raises
 >1. Stand with your feet shoulder-width apart and your knees slightly bent.
 >2. Raise your arms straight out in front of you.
@@ -287,11 +293,9 @@ Join the <a href="https://discord.gg/E7q6fp9bmx"> Discord </a> and ask for help 
 >12. Rest for 30 seconds before repeating the exercise.
 >13. Gradually increase the number of repetitions as you become stronger.
 
-
 ### A color description has been provided. Find the CSS code associated with that color. A light red color with a medium light shade of pink
 
 >The CSS code associated with the color provided is: #FF6347
-
 
 ### Come up with an interesting idea for a new movie plot. Your plot should be described with a title and a summary.
 
@@ -299,6 +303,7 @@ Join the <a href="https://discord.gg/E7q6fp9bmx"> Discord </a> and ask for help 
 > 2. The summary of your movie plot should be: A group of mercenaries are hired to protect a small town from a dangerous criminal who is on the run. However, the town's sheriff is not willing to let them take over and decides to take matters into his own hands.
 
 ### Reverse a string in python.
+
 > In Python, you can reverse a list or tuple by using the reversed() function on it. Here's an example of how to use this method with strings: 
 >    ```python
 >   my_string = "Hello World" # Define your original string here
@@ -306,6 +311,7 @@ Join the <a href="https://discord.gg/E7q6fp9bmx"> Discord </a> and ask for help 
 >   print(reversed_str)     # Output will be reversed version of the inputted string.
 
 ### List 10 dogs.
+
 > 1. Labrador Retriever
 > 2. Golden Retriever
 > 3. Beagle
@@ -337,7 +343,8 @@ Join the <a href="https://discord.gg/E7q6fp9bmx"> Discord </a> and ask for help 
 > His legacy reduced to a mere garnish,<br>
 > As he was consumed by the masses.
     
-### What is a three word topic describing the following keywords: baseball, football, soccer: 
+### What is a three word topic describing the following keywords: baseball, football, soccer
+
 > Sports, athletics, games
     
 ## Citation

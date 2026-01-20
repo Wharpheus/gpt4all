@@ -1,4 +1,5 @@
 # Embeddings
+
 GPT4All supports generating high quality embeddings of arbitrary length text using any embedding model supported by llama.cpp.
 
 An embedding is a vector representation of a piece of text. Embeddings are useful for tasks such as retrieval for
@@ -26,11 +27,13 @@ The embedding length is the size of the vector returned by `Embed4All.embed`.
 [Embedding Longer Texts]: #embedding-longer-texts
 
 ## Quickstart
+
 ```bash
 pip install gpt4all
 ```
 
 ### Generating Embeddings
+
 By default, embeddings will be generated on the CPU using all-MiniLM-L6-v2.
 
 === "Embed4All Example"
@@ -116,7 +119,6 @@ sequence length of the model before generating a single embedding.
     [-0.009771130047738552, 0.034792833030223846, -0.013273917138576508, ...]
     ```
 
-
 ### Batching
 
 You can send multiple texts to Embed4All in a single call. This can give faster results when individual texts are
@@ -145,7 +147,6 @@ Increasing it may increase batched embedding throughput if you have a fast GPU, 
 embedder = Embed4All(n_ctx=4096, device='gpu')
 ```
 
-
 ### Resizable Dimensionality
 
 The embedding dimension of Nomic Embed v1.5 can be resized using the `dimensionality` parameter. This parameter supports
@@ -171,6 +172,6 @@ info.
     [-0.03567073494195938, 0.1301717758178711, -0.4333043396472931, ...]
     ```
 
-
 ### API documentation
+
 ::: gpt4all.gpt4all.Embed4All

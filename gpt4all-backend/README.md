@@ -1,4 +1,5 @@
 # GPT4ALL Backend
+
 This directory contains the C/C++ model backend used by GPT4All for inference on the CPU. This backend acts as a universal library/wrapper for all models that the GPT4All ecosystem supports. Language bindings are built on top of this universal library. The native GPT4all Chat application directly uses this library for all inference.
 
 # What models are supported by the GPT4All ecosystem?

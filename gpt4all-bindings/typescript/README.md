@@ -10,15 +10,21 @@ npm install gpt4all@latest
 pnpm install gpt4all@latest
 
 ```
+
 ## Breaking changes in version 4!!
+
 *   See [Transition](#changes)
+
 ## Contents
+
 *   See [API Reference](#api-reference)
 *   See [Examples](#api-example)
 *   See [Developing](#develop)
 *   GPT4ALL nodejs bindings created by [jacoobes](https://github.com/jacoobes), [limez](https://github.com/iimez) and the [nomic ai community](https://home.nomic.ai), for all to use.
 *   [spare change](https://github.com/sponsors/jacoobes) for a college student? 🤑
+
 ## Api Examples
+
 ### Chat Completion
 
 Use a chat session to keep context between completions. This is useful for efficient back and forth conversations.
@@ -65,6 +71,7 @@ model.dispose();
 ```
 
 ### Stateless usage
+
 You can use the model without a chat session. This is useful for one-off completions.
 
 ```js
@@ -108,6 +115,7 @@ console.log(createEmbedding(embedder, "Maybe Minecraft was the friends we made a
 ```
 
 ### Streaming responses
+
 ```js
 import { loadModel, createCompletionStream } from "../src/gpt4all.js";
 
@@ -128,6 +136,7 @@ model.dispose();
 ```
 
 ### Async Generators
+
 ```js
 import { loadModel, createCompletionGenerator } from "../src/gpt4all.js";
 
@@ -146,7 +155,9 @@ process.stdout.write("\n");
 model.dispose();
 
 ```
+
 ### Offline usage
+
 do this b4 going offline
 ```sh
 curl -L https://gpt4all.io/models/models3.json -o ./models3.json
@@ -167,6 +178,7 @@ model.dispose();
 ```
 
 ## Develop
+
 ### Build Instructions
 
 *   `binding.gyp` is compile config
@@ -203,6 +215,7 @@ cd gpt4all-bindings/typescript
 ```sh
 node scripts/prebuild.js
 ```
+
 *   llama.cpp git submodule for gpt4all can be possibly absent. If this is the case, make sure to run in llama.cpp parent directory
 
 ```sh
@@ -273,12 +286,13 @@ This package has been stabilizing over time development, and breaking changes ma
 *   \[x] switch to new pluggable backend
 
 ## Changes
+
 This repository serves as the new bindings for nodejs users.
+
 - If you were a user of [these bindings](https://github.com/nomic-ai/gpt4all-ts), they are outdated.
 - Version 4 includes the follow breaking changes
     * `createEmbedding` & `EmbeddingModel.embed()` returns an object, `EmbeddingResult`, instead of a float32array.
     * Removed deprecated types `ModelType` and `ModelFile`
     * Removed deprecated initiation of model by string path only
-
 
 ### API Reference

@@ -7,15 +7,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.10.0] - 2025-02-24
 
 ### Added
+
 - Whitelist Granite (non-MoE) model architecture (by [@ThiloteE](https://github.com/ThiloteE) in [#3487](https://github.com/nomic-ai/gpt4all/pull/3487))
 - Add support for CUDA compute 5.0 GPUs such as the GTX 750 ([#3499](https://github.com/nomic-ai/gpt4all/pull/3499))
 - Add a Remote Providers tab to the Add Model page ([#3506](https://github.com/nomic-ai/gpt4all/pull/3506))
 
 ### Changed
+
 - Substitute prettier default templates for OLMoE 7B 0924/0125 and Granite 3.1 3B/8B (by [@ThiloteE](https://github.com/ThiloteE) in [#3471](https://github.com/nomic-ai/gpt4all/pull/3471))
 - Build with LLVM Clang 19 on macOS and Ubuntu ([#3500](https://github.com/nomic-ai/gpt4all/pull/3500))
 
 ### Fixed
+
 - Fix several potential crashes ([#3465](https://github.com/nomic-ai/gpt4all/pull/3465))
 - Fix visual spacing issues with deepseek models ([#3470](https://github.com/nomic-ai/gpt4all/pull/3470))
 - Add missing strings to Italian translation (by [@Harvester62](https://github.com/Harvester62) in [#3496](https://github.com/nomic-ai/gpt4all/pull/3496))
@@ -24,9 +27,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.9.0] - 2025-02-04
 
 ### Added
+
 - Whitelist OLMoE and Granite MoE model architectures (no Vulkan) (by [@ThiloteE](https://github.com/ThiloteE) in [#3449](https://github.com/nomic-ai/gpt4all/pull/3449))
 
 ### Fixed
+
 - Fix "index N is not a prompt" when using LocalDocs with reasoning ([#3451](https://github.com/nomic-ai/gpt4all/pull/3451))
 - Work around rendering artifacts on Snapdragon SoCs with Windows ([#3450](https://github.com/nomic-ai/gpt4all/pull/3450))
 - Prevent DeepSeek-R1 reasoning from appearing in chat names and follow-up questions ([#3458](https://github.com/nomic-ai/gpt4all/pull/3458))
@@ -36,14 +41,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.8.0] - 2025-01-30
 
 ### Added
+
 - Support DeepSeek-R1 Qwen models ([#3431](https://github.com/nomic-ai/gpt4all/pull/3431))
 - Support for think tags in the GUI ([#3440](https://github.com/nomic-ai/gpt4all/pull/3440))
 - Support specifying SHA256 hash in models3.json instead of MD5 ([#3437](https://github.com/nomic-ai/gpt4all/pull/3437))
 
 ### Changed
+
 - Use minja instead of Jinja2Cpp for significantly improved template compatibility ([#3433](https://github.com/nomic-ai/gpt4all/pull/3433))
 
 ### Fixed
+
 - Fix regression while using localdocs with server API ([#3410](https://github.com/nomic-ai/gpt4all/pull/3410))
 - Don't show system messages in server chat view ([#3411](https://github.com/nomic-ai/gpt4all/pull/3411))
 - Fix `codesign --verify` failure on macOS ([#3413](https://github.com/nomic-ai/gpt4all/pull/3413))
@@ -55,12 +63,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.7.0] - 2025-01-21
 
 ### Added
+
 - Add support for the Windows ARM64 target platform (CPU-only) ([#3385](https://github.com/nomic-ai/gpt4all/pull/3385))
 
 ### Changed
+
 - Update from Qt 6.5.1 to 6.8.1 ([#3386](https://github.com/nomic-ai/gpt4all/pull/3386))
 
 ### Fixed
+
 - Fix the timeout error in code interpreter ([#3369](https://github.com/nomic-ai/gpt4all/pull/3369))
 - Fix code interpreter console.log not accepting multiple arguments ([#3371](https://github.com/nomic-ai/gpt4all/pull/3371))
 - Remove 'X is defined' checks from templates for better compatibility ([#3372](https://github.com/nomic-ai/gpt4all/pull/3372))
@@ -74,16 +85,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.6.1] - 2024-12-20
 
 ### Fixed
+
 - Fix the stop generation button no longer working in v3.6.0 ([#3336](https://github.com/nomic-ai/gpt4all/pull/3336))
 - Fix the copy entire conversation button no longer working in v3.6.0 ([#3336](https://github.com/nomic-ai/gpt4all/pull/3336))
 
 ## [3.6.0] - 2024-12-19
 
 ### Added
+
 - Automatically substitute chat templates that are not compatible with Jinja2Cpp in GGUFs ([#3327](https://github.com/nomic-ai/gpt4all/pull/3327))
 - Built-in javascript code interpreter tool plus model ([#3173](https://github.com/nomic-ai/gpt4all/pull/3173))
 
 ### Fixed
+
 - Fix remote model template to allow for XML in messages ([#3318](https://github.com/nomic-ai/gpt4all/pull/3318))
 - Fix Jinja2Cpp bug that broke system message detection in chat templates ([#3325](https://github.com/nomic-ai/gpt4all/pull/3325))
 - Fix LocalDocs sources displaying in unconsolidated form after v3.5.0 ([#3328](https://github.com/nomic-ai/gpt4all/pull/3328))
@@ -91,14 +105,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.5.3] - 2024-12-16
 
 ### Fixed
+
 - Fix LocalDocs not using information from sources in v3.5.2 ([#3302](https://github.com/nomic-ai/gpt4all/pull/3302))
 
 ## [3.5.2] - 2024-12-13
 
 ### Added
+
 - Create separate download pages for built-in and HuggingFace models ([#3269](https://github.com/nomic-ai/gpt4all/pull/3269))
 
 ### Fixed
+
 - Fix API server ignoring assistant messages in history after v3.5.0 ([#3256](https://github.com/nomic-ai/gpt4all/pull/3256))
 - Fix API server replying with incorrect token counts and stop reason after v3.5.0 ([#3256](https://github.com/nomic-ai/gpt4all/pull/3256))
 - Fix API server remembering previous, unrelated conversations after v3.5.0 ([#3256](https://github.com/nomic-ai/gpt4all/pull/3256))
@@ -108,6 +125,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.5.1] - 2024-12-10
 
 ### Fixed
+
 - Fix an incorrect value for currentResponse ([#3245](https://github.com/nomic-ai/gpt4all/pull/3245))
 - Fix the default model button so it works again after 3.5.0 ([#3246](https://github.com/nomic-ai/gpt4all/pull/3246))
 - Fix chat templates for Nous Hermes 2 Mistral, Mistral OpenOrca, Qwen 2, and remote models ([#3250](https://github.com/nomic-ai/gpt4all/pull/3250))
@@ -116,15 +134,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.5.0] - 2024-12-09
 
 ### Changed
+
 - Update Italian translation (by [@Harvester62](https://github.com/Harvester62) in [#3236](https://github.com/nomic-ai/gpt4all/pull/3236))
 - Update Romanian translation (by [@SINAPSA-IC](https://github.com/SINAPSA-IC) in [#3232](https://github.com/nomic-ai/gpt4all/pull/3232))
 
 ### Fixed
+
 - Fix a few more problems with the Jinja changes ([#3239](https://github.com/nomic-ai/gpt4all/pull/3239))
 
 ## [3.5.0-rc2] - 2024-12-06
 
 ### Changed
+
 - Fade messages out with an animation when they are removed from the chat view ([#3227](https://github.com/nomic-ai/gpt4all/pull/3227))
 - Tweak wording of edit/redo confirmation dialogs ([#3228](https://github.com/nomic-ai/gpt4all/pull/3228))
 - Make edit/redo buttons disabled instead of invisible when they are temporarily unavailable ([#3228](https://github.com/nomic-ai/gpt4all/pull/3228))
@@ -132,12 +153,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.5.0-rc1] - 2024-12-04
 
 ### Added
+
 - Add ability to attach text, markdown, and rst files to chat ([#3135](https://github.com/nomic-ai/gpt4all/pull/3135))
 - Add feature to minimize to system tray (by [@bgallois](https://github.com/bgallois) in [#3109](https://github.com/nomic-ai/gpt4all/pull/3109))
 - Basic cache for faster prefill when the input shares a prefix with previous context ([#3073](https://github.com/nomic-ai/gpt4all/pull/3073))
 - Add ability to edit prompts and regenerate any response ([#3147](https://github.com/nomic-ai/gpt4all/pull/3147))
 
 ### Changed
+
 - Implement Qt 6.8 compatibility ([#3121](https://github.com/nomic-ai/gpt4all/pull/3121))
 - Use Jinja for chat templates instead of per-message QString.arg-style templates ([#3147](https://github.com/nomic-ai/gpt4all/pull/3147))
 - API server: Use system message(s) from client instead of settings ([#3147](https://github.com/nomic-ai/gpt4all/pull/3147))
@@ -145,9 +168,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Remote models: Pass system message with "system" role instead of joining with user message ([#3147](https://github.com/nomic-ai/gpt4all/pull/3147))
 
 ### Removed
+
 - Remove option to save binary model state to disk ([#3147](https://github.com/nomic-ai/gpt4all/pull/3147))
 
 ### Fixed
+
 - Fix bug in GUI when localdocs encounters binary data ([#3137](https://github.com/nomic-ai/gpt4all/pull/3137))
 - Fix LocalDocs bugs that prevented some docx files from fully chunking ([#3140](https://github.com/nomic-ai/gpt4all/pull/3140))
 - Fix missing softmax that was causing crashes and effectively infinite temperature since 3.4.0 ([#3202](https://github.com/nomic-ai/gpt4all/pull/3202))
@@ -155,6 +180,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.4.2] - 2024-10-16
 
 ### Fixed
+
 - Limit bm25 retrieval to only specified collections ([#3083](https://github.com/nomic-ai/gpt4all/pull/3083))
 - Fix bug removing documents because of a wrong case sensitive file suffix check ([#3083](https://github.com/nomic-ai/gpt4all/pull/3083))
 - Fix bug with hybrid localdocs search where database would get out of sync ([#3083](https://github.com/nomic-ai/gpt4all/pull/3083))
@@ -164,6 +190,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.4.1] - 2024-10-11
 
 ### Fixed
+
 - Improve the Italian translation ([#3048](https://github.com/nomic-ai/gpt4all/pull/3048))
 - Fix models.json cache location ([#3052](https://github.com/nomic-ai/gpt4all/pull/3052))
 - Fix LocalDocs regressions caused by docx change ([#3079](https://github.com/nomic-ai/gpt4all/pull/3079))
@@ -172,11 +199,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.4.0] - 2024-10-08
 
 ### Added
+
 - Add bm25 hybrid search to localdocs ([#2969](https://github.com/nomic-ai/gpt4all/pull/2969))
 - LocalDocs support for .docx files ([#2986](https://github.com/nomic-ai/gpt4all/pull/2986))
 - Add support for attaching Excel spreadsheet to chat ([#3007](https://github.com/nomic-ai/gpt4all/pull/3007), [#3028](https://github.com/nomic-ai/gpt4all/pull/3028))
 
 ### Changed
+
 - Rebase llama.cpp on latest upstream as of September 26th ([#2998](https://github.com/nomic-ai/gpt4all/pull/2998))
 - Change the error message when a message is too long ([#3004](https://github.com/nomic-ai/gpt4all/pull/3004))
 - Simplify chatmodel to get rid of unnecessary field and bump chat version ([#3016](https://github.com/nomic-ai/gpt4all/pull/3016))
@@ -184,6 +213,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Improvements to XLSX conversion and UI fix ([#3022](https://github.com/nomic-ai/gpt4all/pull/3022))
 
 ### Fixed
+
 - Fix a crash when attempting to continue a chat loaded from disk ([#2995](https://github.com/nomic-ai/gpt4all/pull/2995))
 - Fix the local server rejecting min\_p/top\_p less than 1 ([#2996](https://github.com/nomic-ai/gpt4all/pull/2996))
 - Fix "regenerate" always forgetting the most recent message ([#3011](https://github.com/nomic-ai/gpt4all/pull/3011))
@@ -194,24 +224,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.3.1] - 2024-09-27 ([v3.3.y](https://github.com/nomic-ai/gpt4all/tree/v3.3.y))
 
 ### Fixed
+
 - Fix a crash when attempting to continue a chat loaded from disk ([#2995](https://github.com/nomic-ai/gpt4all/pull/2995))
 - Fix the local server rejecting min\_p/top\_p less than 1 ([#2996](https://github.com/nomic-ai/gpt4all/pull/2996))
 
 ## [3.3.0] - 2024-09-20
 
 ### Added
+
 - Use greedy sampling when temperature is set to zero ([#2854](https://github.com/nomic-ai/gpt4all/pull/2854))
 - Use configured system prompt in server mode and ignore system messages ([#2921](https://github.com/nomic-ai/gpt4all/pull/2921), [#2924](https://github.com/nomic-ai/gpt4all/pull/2924))
 - Add more system information to anonymous usage stats ([#2939](https://github.com/nomic-ai/gpt4all/pull/2939))
 - Check for unsupported Ubuntu and macOS versions at install time ([#2940](https://github.com/nomic-ai/gpt4all/pull/2940))
 
 ### Changed
+
 - The offline update button now directs users to the offline installer releases page. (by [@3Simplex](https://github.com/3Simplex) in [#2888](https://github.com/nomic-ai/gpt4all/pull/2888))
 - Change the website link on the home page to point to the new URL ([#2915](https://github.com/nomic-ai/gpt4all/pull/2915))
 - Smaller default window size, dynamic minimum size, and scaling tweaks ([#2904](https://github.com/nomic-ai/gpt4all/pull/2904))
 - Only allow a single instance of program to be run at a time ([#2923](https://github.com/nomic-ai/gpt4all/pull/2923]))
 
 ### Fixed
+
 - Bring back "Auto" option for Embeddings Device as "Application default," which went missing in v3.1.0 ([#2873](https://github.com/nomic-ai/gpt4all/pull/2873))
 - Correct a few strings in the Italian translation (by [@Harvester62](https://github.com/Harvester62) in [#2872](https://github.com/nomic-ai/gpt4all/pull/2872) and [#2909](https://github.com/nomic-ai/gpt4all/pull/2909))
 - Correct typos in Traditional Chinese translation (by [@supersonictw](https://github.com/supersonictw) in [#2852](https://github.com/nomic-ai/gpt4all/pull/2852))
@@ -229,6 +263,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.2.1] - 2024-08-13
 
 ### Fixed
+
 - Do not initialize Vulkan driver when only using CPU ([#2843](https://github.com/nomic-ai/gpt4all/pull/2843))
 - Fix a potential crash on exit when using only CPU on Linux with NVIDIA (does not affect X11) ([#2843](https://github.com/nomic-ai/gpt4all/pull/2843))
 - Fix default CUDA architecture list after [#2802](https://github.com/nomic-ai/gpt4all/pull/2802) ([#2855](https://github.com/nomic-ai/gpt4all/pull/2855))
@@ -236,15 +271,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.2.0] - 2024-08-12
 
 ### Added
+
 - Add Qwen2-1.5B-Instruct to models3.json (by [@ThiloteE](https://github.com/ThiloteE) in [#2759](https://github.com/nomic-ai/gpt4all/pull/2759))
 - Enable translation feature for seven languages: English, Spanish, Italian, Portuguese, Chinese Simplified, Chinese Traditional, Romanian ([#2830](https://github.com/nomic-ai/gpt4all/pull/2830))
 
 ### Changed
+
 - Add missing entries to Italian transltation (by [@Harvester62](https://github.com/Harvester62) in [#2783](https://github.com/nomic-ai/gpt4all/pull/2783))
 - Use llama\_kv\_cache ops to shift context faster ([#2781](https://github.com/nomic-ai/gpt4all/pull/2781))
 - Don't stop generating at end of context ([#2781](https://github.com/nomic-ai/gpt4all/pull/2781))
 
 ### Fixed
+
 - Case-insensitive LocalDocs source icon detection (by [@cosmic-snow](https://github.com/cosmic-snow) in [#2761](https://github.com/nomic-ai/gpt4all/pull/2761))
 - Fix comparison of pre- and post-release versions for update check and models3.json ([#2762](https://github.com/nomic-ai/gpt4all/pull/2762), [#2772](https://github.com/nomic-ai/gpt4all/pull/2772))
 - Fix several backend issues ([#2778](https://github.com/nomic-ai/gpt4all/pull/2778))
@@ -257,18 +295,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [3.1.1] - 2024-07-27
 
 ### Added
+
 - Add Llama 3.1 8B Instruct to models3.json (by [@3Simplex](https://github.com/3Simplex) in [#2731](https://github.com/nomic-ai/gpt4all/pull/2731) and [#2732](https://github.com/nomic-ai/gpt4all/pull/2732))
 - Portuguese (BR) translation (by [thiagojramos](https://github.com/thiagojramos) in [#2733](https://github.com/nomic-ai/gpt4all/pull/2733))
 - Support adding arbitrary OpenAI-compatible models by URL (by [@supersonictw](https://github.com/supersonictw) in [#2683](https://github.com/nomic-ai/gpt4all/pull/2683))
 - Support Llama 3.1 RoPE scaling ([#2758](https://github.com/nomic-ai/gpt4all/pull/2758))
 
 ### Changed
+
 - Add missing entries to Chinese (Simplified) translation (by [wuodoo](https://github.com/wuodoo) in [#2716](https://github.com/nomic-ai/gpt4all/pull/2716) and [#2749](https://github.com/nomic-ai/gpt4all/pull/2749))
 - Update translation files and add missing paths to CMakeLists.txt ([#2735](https://github.com/nomic-ai/gpt4all/2735))
 
 ## [3.1.0] - 2024-07-24
 
 ### Added
+
 - Generate suggested follow-up questions ([#2634](https://github.com/nomic-ai/gpt4all/pull/2634), [#2723](https://github.com/nomic-ai/gpt4all/pull/2723))
   - Also add options for the chat name and follow-up question prompt templates
 - Scaffolding for translations ([#2612](https://github.com/nomic-ai/gpt4all/pull/2612))
@@ -280,6 +321,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Italian translation (by [@Harvester62](https://github.com/Harvester62) in [#2700](https://github.com/nomic-ai/gpt4all/pull/2700))
 
 ### Changed
+
 - Customize combo boxes and context menus to fit the new style ([#2535](https://github.com/nomic-ai/gpt4all/pull/2535))
 - Improve view bar scaling and Model Settings layout ([#2520](https://github.com/nomic-ai/gpt4all/pull/2520)
 - Make the logo spin while the model is generating ([#2557](https://github.com/nomic-ai/gpt4all/pull/2557))
@@ -298,9 +340,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Show scrollbar in chat collections list as needed (by [@cosmic-snow](https://github.com/cosmic-snow) in [#2691](https://github.com/nomic-ai/gpt4all/pull/2691))
 
 ### Removed
+
 - Remove support for GPT-J models ([#2676](https://github.com/nomic-ai/gpt4all/pull/2676), [#2693](https://github.com/nomic-ai/gpt4all/pull/2693))
 
 ### Fixed
+
 - Fix placement of thumbs-down and datalake opt-in dialogs ([#2540](https://github.com/nomic-ai/gpt4all/pull/2540))
 - Select the correct folder with the Linux fallback folder dialog ([#2541](https://github.com/nomic-ai/gpt4all/pull/2541))
 - Fix clone button sometimes producing blank model info ([#2545](https://github.com/nomic-ai/gpt4all/pull/2545))

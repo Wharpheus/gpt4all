@@ -5,6 +5,7 @@ This package contains a set of Python bindings around the `llmodel` C-API.
 Package on PyPI: https://pypi.org/project/gpt4all/
 
 ## Documentation
+
 https://docs.gpt4all.io/gpt4all_python.html
 
 ## Installation
@@ -30,6 +31,7 @@ On Windows and Linux, building GPT4All with full GPU support requires the [Vulka
 ### Building the python bindings
 
 1. Clone GPT4All and change directory:
+
 ```
 git clone --recurse-submodules https://github.com/nomic-ai/gpt4all.git
 cd gpt4all/gpt4all-backend
@@ -52,6 +54,7 @@ cmake --build build --parallel
 `RelWithDebInfo` is a good default, but you can also use `Release` or `Debug` depending on the situation.
 
 2. Install the Python package:
+
 ```
 cd ../gpt4all-bindings/python
 pip install -e .
@@ -68,7 +71,6 @@ output = model.generate("The capital of France is ", max_tokens=3)
 print(output)
 ```
 
-
 GPU Usage
 ```python
 from gpt4all import GPT4All
@@ -78,7 +80,9 @@ print(output)
 ```
 
 ## Troubleshooting a Local Build
+
 - If you're on Windows and have compiled with a MinGW toolchain, you might run into an error like:
+
   ```
   FileNotFoundError: Could not find module '<...>\gpt4all-bindings\python\gpt4all\llmodel_DO_NOT_MODIFY\build\libllmodel.dll'
   (or one of its dependencies). Try using the full path with constructor syntax.
@@ -89,5 +93,6 @@ print(output)
   into a folder where Python will see them, preferably next to `libllmodel.dll`.
 
 - Note regarding the Microsoft toolchain: Compiling with MSVC is possible, but not the official way to
+
   go about it at the moment. MSVC doesn't produce DLLs with a `lib` prefix, which the bindings expect.
   You'd have to amend that yourself.

@@ -3,12 +3,17 @@
 1. Ensure you have a fresh install by **backing up** and then deleting the following directories:
 
     ### Windows
+
       * Settings directory: ```C:\Users\{username}\AppData\Roaming\nomic.ai```
       * Models directory: ```C:\Users\{username}\AppData\Local\nomic.ai\GPT4All```
+
     ### Mac
+
       * Settings directory: ```/Users/{username}/.config/gpt4all.io```
       * Models directory: ```/Users/{username}/Library/Application Support/nomic.ai/GPT4All```
+
     ### Linux
+
       * Settings directory: ```/home/{username}/.config/nomic.ai```
       * Models directory: ```/home/{username}/.local/share/nomic.ai/GPT4All```
   

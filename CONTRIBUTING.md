@@ -13,6 +13,7 @@ Please note we have a code of conduct, please follow it in all your interactions
 4. Significant feature or code changes should provide a short video or screenshot demo.
 4. Fill out relevant parts of Pull Request template. 
 4. Pull requests must have sign-off from one other developer. Reach out to a repository owner once your
+
    code is ready to be merged into `main`.
 
 ## Code of Conduct
@@ -40,12 +41,17 @@ include:
 Examples of unacceptable behavior by participants include:
 
 * The use of sexualized language or imagery and unwelcome sexual attention or
+
 advances
+
 * Trolling, insulting/derogatory comments, and personal or political attacks
 * Public or private harassment
 * Publishing others' private information, such as a physical or electronic
+
   address, without explicit permission
+
 * Other conduct which could reasonably be considered inappropriate in a
+
   professional setting
 
 ### Our Responsibilities
